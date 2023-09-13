@@ -15,3 +15,9 @@ def Gastos(request):
 def Categorias(request):
     return render(request, 'categorias.html')
 
+def ingresosFormulario(request):
+    if request.method == 'POST':
+            ingresos =  Ingresos(request.post['descripcion'],(request.post['monto']))
+            ingresos.save()
+            return render(request, "inicio.html")
+    return render(request, 'ingresosFormulario')
