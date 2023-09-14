@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -15,9 +17,16 @@ def Gastos(request):
 def Categorias(request):
     return render(request, 'categorias.html')
 
-def ingresosFormulario(request):
+def IngresosFormulario(request):
     if request.method == 'POST':
-            ingresos =  Ingresos(request.post['descripcion'],(request.post['monto']))
-            ingresos.save()
-            return render(request, "inicio.html")
-    return render(request, 'ingresosFormulario')
+        miFormulario = IngresosFormulario(request.POST) 
+        print(miFormulario)
+        if miFormulario.is_valid:
+            inf = miFormulario.cleaned_data
+            ingreso = Ingresos(descripcion=inf['descripcion'], monto=inf['monto'], fecha=inf['fecha'])
+            ingreso.save()
+            return render(request, 'inicio.html')
+    else:
+        miFormulario=Ingresosformulario()
+        
+    return render(request, 'ingresosFormulario.html', {'miFormulario': miFormulario})

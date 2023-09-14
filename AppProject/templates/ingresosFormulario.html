@@ -1,11 +1,10 @@
 {% extends "padre.html" %}
-{% load static %}
+
 {% block contenidoQueCambia %}
 
-    <form action="/cursoFormulario/"    method="post">{% csrf_token %}
-        <p> Descripcion: <input type = "text" name="Descripcion">
-        <p> Monto: <input type = "float" name="Monto">
-        <input type = "submit" value="Enviar">
-    <form>
+    <form action=""    method="post"> {% csrf_token %} {%csrf_token%}
+       {{miFormulario.as_p}}
+       <button type="submit"> Enviar</button>
+    </form>
 
 {% endblock %}
